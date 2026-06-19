@@ -1,171 +1,256 @@
-NailCareAI 💅🤖
+# NailCareAI
 
-Early-Stage Nail Disease Detection Using Deep Learning
+AI-powered nail disease screening system. Upload a nail image to detect 17 potential conditions using deep learning.
 
-NailCareAI is a web-based deep learning application that detects potential nail diseases from nail images. The system uses a pre-trained VGG16-based CNN model and provides predictions through a simple, user-friendly interface.
+---
 
-This project aims to assist early diagnosis and reduce the workload on medical professionals by providing AI-based preliminary analysis.
+## Project Structure
 
-🚀 Features
+```
+nailcare-ai/
+├── backend/                  # Flask API and business logic
+│   ├── app/
+│   │   ├── api/              # REST endpoints (routes.py)
+│   │   ├── core/             # Constants, exceptions
+│   │   ├── services/         # Model, image, prediction logic
+│   │   ├── utils/            # Validation, security helpers
+│   │   ├── config.py         # Environment configuration
+│   │   ├── extensions.py     # CORS, rate limiting, logging
+│   │   └── __init__.py       # App factory
+│   ├── tests/                # pytest suite
+│   └── run.py                # Entry point
+│
+├── frontend/                 # HTML, CSS, JS templates
+│   ├── static/
+│   │   ├── css/main.css      # Design system
+│   │   └── js/main.js        # Upload, drag-drop, results
+│   └── templates/            # Jinja2 HTML pages
+│       ├── base.html
+│       ├── index.html        # Landing page
+│       ├── about.html        # Technology
+│       ├── nailhome.html     # Disease library
+│       └── nailpred.html     # Upload & results
+│
+├── data/                     # Dataset (train/test folders)
+│   ├── train/                # Training images (17 class folders)
+│   └── test/                 # Test images (17 class folders)
+│
+├── models/                   # Trained model storage
+│   └── vgg-16-nail-disease.h5
+│
+├── scripts/                  # Training utilities
+│   ├── rename_folders.py     # Fix dataset folder names
+│   └── train.py              # Model training
+│
+├── requirements.txt          # Single requirements file
+├── requirements-training.txt  # TensorFlow training-only dependencies
+└── README.md                 # This file
+```
 
-Upload nail images for disease prediction
+---
 
-Deep learning model trained using transfer learning
+## Quick Start
 
-Supports 17 different nail disease classes
+### 1. Install Dependencies
 
-Web-based interface (HTML + CSS + JS)
+```bash
+pip install -r requirements.txt
+```
 
-REST API for prediction using Flask
+If you want to train a real TensorFlow model, create a Python 3.12 virtual environment and install the training dependencies instead:
 
-Confidence score returned with predictions
+```powershell
+python3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-training.txt
+```
 
-🧠 Diseases Supported
+### 2. Add Your Dataset
 
-The model can detect the following nail conditions:
+Place your nail disease images in the `data/` folder with this exact structure:
 
-Darier's disease
+```
+data/
+├── train/
+│   ├── Alopecia areata/
+│   ├── Beau's lines/
+│   ├── Bluish nail/
+│   ├── Clubbing/
+│   ├── Darier's disease/
+│   ├── Eczema/
+│   ├── Half and half nails (Lindsay's nails)/
+│   ├── Koilonychia/
+│   ├── Leukonychia/
+│   ├── Muehrcke's lines/
+│   ├── Onycholysis/
+│   ├── Pale nail/
+│   ├── Red lunula/
+│   ├── Splinter hemorrhage/
+│   ├── Terry's nail/
+│   ├── White nail/
+│   └── Yellow nails/
+└── test/
+    ├── (same 17 folders)
+```
 
-Muehrcke's lines
+**Important:** Folder names must match exactly (case-sensitive, with apostrophes).
 
-Alopecia areata
+If your folder names have typos or underscores, run:
 
-Beau's lines
+```bash
+python scripts/rename_folders.py
+```
 
-Bluish nail
+### 3. Run the Application
 
-Clubbing
+```bash
+cd backend
+python run.py
+```
 
-Eczema
+Open browser: **http://localhost:5000**
 
-Half and half nails (Lindsay's nails)
+---
 
-Koilonychia
+## Training a Real Model
 
-Leukonychia
+The app runs in **mock mode** by default (random predictions for demo). To train a real model:
 
-Onycholysis
+### Requirements for Training
+- **Python 3.12** (TensorFlow does not support Python 3.14)
+- TensorFlow 2.16+
 
-Pale nail
+### Steps
 
-Red lunula
+```bash
+# 1. Install Python 3.12 from https://www.python.org/downloads/
 
-Splinter hemorrhage
+# 2. Create virtual environment with Python 3.12
+python3.12 -m venv .venv
 
-Terry's nail
+# 3. Activate
+# Windows:
+.venv\Scripts\Activate.ps1
+# Mac/Linux:
+source .venv/bin/activate
 
-White nail
+# 4. Install TensorFlow training dependencies
+pip install -r requirements-training.txt
 
-Yellow nails
+# 5. Train
+python scripts/train.py --epochs 50 --batch-size 32
 
-🏗️ Tech Stack
-Backend
+# 6. Move trained model to production
+mkdir -p models
+cp models/vgg-16-nail-disease.h5 models/
 
-Python
+# 7. Run app
+python backend/run.py
+```
 
-Flask
+---
 
-Flask-CORS
+## API Endpoints
 
-TensorFlow / Keras
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Landing page |
+| `/about.html` | GET | Technology page |
+| `/nailhome.html` | GET | Disease library |
+| `/nailpred.html` | GET | Upload page |
+| `/api/health` | GET | Health check |
+| `/api/version` | GET | App version |
+| `/api/model-info` | GET | Model metadata |
+| `/api/predict` | POST | Upload image, get prediction |
+| `/predict` | POST | Legacy endpoint |
 
-NumPy
+### Prediction Response
 
-Frontend
-
-HTML5
-
-CSS3
-
-JavaScript
-
-Deep Learning
-
-VGG16 (Transfer Learning)
-
-Image input size: 224 x 224
-
-⚙️ Installation & Setup
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/NailCareAI.git
-cd NailCareAI
-
-2️⃣ Create Virtual Environment (Recommended)
-python -m venv venv
-source venv/bin/activate   # Linux / Mac
-venv\Scripts\activate      # Windows
-
-3️⃣ Install Dependencies
-pip install flask flask-cors tensorflow numpy pillow
-
-4️⃣ Add Model File
-
-Place the trained model file at either:
-
-static/models/vgg-16-nail-disease.h5
-
-
-or in the project root directory.
-
-▶️ Run the Application
-python main.py
-
-
-Server will start at:
-
-http://127.0.0.1:5000
-
-🌐 Web Pages
-Page	URL
-Home	/index.html
-About	/about.html
-Nail Info	/nailhome.html
-Prediction	/nailpred.html
-🔌 API Endpoint
-POST /predict
-
-Request
-
-Content-Type: multipart/form-data
-
-Field name: file
-
-Response
-
+```json
 {
-  "disease_name": "Koilonychia",
-  "confidence": 92.45
+  "success": true,
+  "data": {
+    "prediction": {
+      "disease_name": "Terry's nail",
+      "confidence": 94.23,
+      "confidence_level": "High",
+      "class_index": 14
+    },
+    "disease_info": {
+      "description": "Mostly white with pink tip...",
+      "symptoms": ["White nail", "Pink distal band"],
+      "severity": "High",
+      "next_steps": "Liver function tests..."
+    },
+    "top_predictions": [
+      {"rank": 1, "disease_name": "Terry's nail", "confidence": 94.23},
+      {"rank": 2, "disease_name": "White nail", "confidence": 3.12}
+    ],
+    "disclaimer": "This AI screening tool is for informational purposes only..."
+  },
+  "meta": {
+    "timestamp": "2024-01-15T10:30:00",
+    "processing_time_ms": 245.6,
+    "model_version": "1.0.0"
+  }
 }
+```
 
-🛡️ Validations & Security
+---
 
-Only image files allowed (.jpg, .jpeg, .png, .bmp)
+## 17 Detectable Conditions
 
-Secure file upload handling
+1. Darier's disease
+2. Muehrcke's lines
+3. Alopecia areata
+4. Beau's lines
+5. Bluish nail
+6. Clubbing
+7. Eczema
+8. Half and half nails (Lindsay's nails)
+9. Koilonychia
+10. Leukonychia
+11. Onycholysis
+12. Pale nail
+13. Red lunula
+14. Splinter hemorrhage
+15. Terry's nail
+16. White nail
+17. Yellow nails
 
-Model output validation
+---
 
-Error handling for missing model or invalid input
+## Environment Variables
 
-⚠️ Disclaimer
+Create a `.env` file in the project root:
 
-This system is not a medical diagnostic tool.
-Predictions are for educational and research purposes only and should not replace professional medical advice.
+```env
+FLASK_ENV=development
+SECRET_KEY=your-secret-key
+MAX_UPLOAD_SIZE_MB=10
+CORS_ORIGINS=http://localhost:5000
+MODEL_FILENAME=vgg-16-nail-disease.h5
+```
 
-📌 Future Enhancements
+---
 
-Multiple model comparison (ResNet, Inception, Xception)
+## Troubleshooting
 
-Mobile responsiveness
+| Problem | Solution |
+|---------|----------|
+| `TensorFlow not found` | Expected on Python 3.14. Use Python 3.12 for training. App runs in mock mode. |
+| `pip install tensorflow` fails on Python 3.14 | Use a Python 3.12 venv and `requirements-training.txt` |
+| `Folder names wrong` | Run `python scripts/rename_folders.py` |
+| `Model not loading` | Ensure `models/vgg-16-nail-disease.h5` exists. App falls back to mock mode. |
+| `File too large` | Increase `MAX_UPLOAD_SIZE_MB` in `.env` |
+| `CORS error` | Add your domain to `CORS_ORIGINS` in `.env` |
 
-Doctor recommendation system
+---
 
-Cloud deployment
+## Medical Disclaimer
 
-Patient history tracking
+This AI screening tool is for **informational and educational purposes only**. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions regarding a medical condition.
 
-👨‍💻 Author
+---
 
-Aditya Kadam
-B.Tech CSE
-Project: AI-Based Nail Disease Detection System
+
