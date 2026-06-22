@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered nail disease screening. Upload a nail image to detect potential conditions with clinical precision.">
+  <meta name="theme-color" content="#0A0E1A">
+  <title>{% block title %}NailCareAI{% endblock %} — Clinical AI Screening</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner" id="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand" aria-label="NailCareAI Home">
+        <div class="brand-mark">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="7" height="7" rx="1.5" fill="#2563EB"/>
+            <rect x="11" y="2" width="7" height="7" rx="1.5" fill="#2563EB" opacity="0.5"/>
+            <rect x="2" y="11" width="7" height="7" rx="1.5" fill="#2563EB" opacity="0.5"/>
+            <rect x="11" y="11" width="7" height="7" rx="1.5" fill="#2563EB"/>
+          </svg>
+        </div>
+        <span class="brand-name">NailCare<span class="brand-accent">AI</span></span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" role="navigation" aria-label="Main navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about.html" class="nav-link">Technology</a>
+        <a href="/nailhome.html" class="nav-link">Disease Library</a>
+        <a href="/nailpred.html" class="nav-cta">Run Screening</a>
+      </nav>
+
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-col footer-col--brand">
+        <div class="brand footer-brand">
+          <div class="brand-mark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="7" height="7" rx="1.5" fill="#2563EB"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5" fill="#2563EB" opacity="0.5"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5" fill="#2563EB" opacity="0.5"/>
+              <rect x="11" y="11" width="7" height="7" rx="1.5" fill="#2563EB"/>
+            </svg>
+          </div>
+          <span class="brand-name">NailCare<span class="brand-accent">AI</span></span>
+        </div>
+        <p class="footer-tagline">Clinical-grade AI screening for nail pathology. Built for early detection, designed for clarity.</p>
+        <p class="footer-disclaimer-note">Not a substitute for professional medical advice.</p>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-heading">Platform</p>
+        <ul class="footer-links">
+          <li><a href="/">Overview</a></li>
+          <li><a href="/nailpred.html">Run Screening</a></li>
+          <li><a href="/about.html">Technology</a></li>
+          <li><a href="/nailhome.html">Disease Library</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-heading">API</p>
+        <ul class="footer-links">
+          <li><a href="/api/health">Health Check</a></li>
+          <li><a href="/api/version">Version Info</a></li>
+          <li><a href="/api/model-info">Model Info</a></li>
+          <li><a href="/api/predict" class="footer-link-muted">POST /predict</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-heading">Legal</p>
+        <ul class="footer-links">
+          <li><a href="#" onclick="alert('This tool is for informational purposes only. Always consult a healthcare professional.');return false;">Medical Disclaimer</a></li>
+          <li><a href="#" onclick="alert('Images are processed in-memory and not stored permanently.');return false;">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 NailCareAI</span>
+      <span class="footer-sep">·</span>
+      <span>Built with VGG-16 + TensorFlow</span>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

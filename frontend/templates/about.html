@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Technology{% endblock %}
+{% block content %}
+
+<section class="inner-hero" aria-label="Technology overview">
+  <div class="container">
+    <div class="inner-hero-content">
+      <span class="section-eyebrow">Architecture</span>
+      <h1 class="inner-hero-title">The technology behind NailCareAI.</h1>
+      <p class="inner-hero-subtitle">Transfer learning on proven convolutional architectures, validated preprocessing, and a structured inference pipeline purpose-built for nail pathology.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Models -->
+<section class="section" aria-labelledby="models-heading">
+  <div class="container">
+    <div class="section-label-row"><span class="section-eyebrow">Deep Learning</span></div>
+    <div class="section-header-split">
+      <h2 class="section-title" id="models-heading">Transfer learning models.</h2>
+      <p class="section-subtitle">All models use ImageNet pretrained weights with domain-specific fine-tuning on curated nail disease imagery.</p>
+    </div>
+
+    <div class="model-grid">
+      <article class="model-card model-card--primary">
+        <div class="model-card-top">
+          <div class="model-card-meta">
+            <span class="model-card-name">VGG-16</span>
+            <span class="tech-badge tech-badge--primary">Primary Model</span>
+          </div>
+          <p class="model-card-spec">16 layers · 138M parameters · 224×224 input</p>
+        </div>
+        <p class="model-card-desc">Our production model. Oxford's VGG-16 architecture — 13 convolutional layers with 3 fully connected heads. We froze the convolutional stack and retrained the dense layers on the nail disease dataset. This preserves low-level feature extraction quality from ImageNet while adapting the classifier to our 17-class distribution. Softmax output produces calibrated per-class probabilities.</p>
+        <div class="model-card-tags">
+          <span>Transfer Learning</span>
+          <span>Frozen Conv Layers</span>
+          <span>Retrained FC Head</span>
+          <span>Softmax Output</span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-card-top">
+          <div class="model-card-meta">
+            <span class="model-card-name">ResNet-50</span>
+            <span class="tech-badge">Residual Network</span>
+          </div>
+          <p class="model-card-spec">50 layers · Skip connections · 25M parameters</p>
+        </div>
+        <p class="model-card-desc">Skip connections allow gradient flow through very deep networks without degradation. ResNet-50 provides strong hierarchical feature extraction and serves as a comparison baseline in experimental settings.</p>
+        <div class="model-card-tags">
+          <span>Skip Connections</span>
+          <span>Deep Architecture</span>
+          <span>Baseline Comparison</span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-card-top">
+          <div class="model-card-meta">
+            <span class="model-card-name">InceptionV3</span>
+            <span class="tech-badge">Multi-Scale</span>
+          </div>
+          <p class="model-card-spec">48 layers · Parallel filters · 23M parameters</p>
+        </div>
+        <p class="model-card-desc">Inception modules apply 1×1, 3×3, and 5×5 convolutions in parallel, capturing texture and morphology at different spatial scales simultaneously — particularly suited to nail surface analysis where both fine grain and shape matter.</p>
+        <div class="model-card-tags">
+          <span>Parallel Filters</span>
+          <span>Multi-Scale Features</span>
+        </div>
+      </article>
+
+      <article class="model-card">
+        <div class="model-card-top">
+          <div class="model-card-meta">
+            <span class="model-card-name">Xception</span>
+            <span class="tech-badge">Efficient</span>
+          </div>
+          <p class="model-card-spec">36 layers · Depthwise separable · 22M parameters</p>
+        </div>
+        <p class="model-card-desc">Depthwise separable convolutions decouple channel-wise and spatial filtering, drastically reducing parameter count while maintaining representational capacity. Evaluated for deployment scenarios where inference latency is constrained.</p>
+        <div class="model-card-tags">
+          <span>Depthwise Separable</span>
+          <span>Parameter Efficient</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline -->
+<section class="section section--alt" aria-labelledby="pipeline-heading">
+  <div class="container">
+    <div class="section-label-row"><span class="section-eyebrow">Pipeline</span></div>
+    <h2 class="section-title" id="pipeline-heading">Inference pipeline, step by step.</h2>
+
+    <div class="pipeline-list">
+      <div class="pipeline-step">
+        <div class="pipeline-number" aria-hidden="true">01</div>
+        <div class="pipeline-body">
+          <h3 class="pipeline-title">Secure Upload</h3>
+          <p class="pipeline-desc">Incoming files pass a four-layer validation chain: magic number check (file signature bytes), extension whitelist, MIME-type verification, and maximum size enforcement. Malformed or oversized files are rejected before touching model infrastructure.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-number" aria-hidden="true">02</div>
+        <div class="pipeline-body">
+          <h3 class="pipeline-title">Preprocessing</h3>
+          <p class="pipeline-desc">PIL decodes the image and forces conversion to RGB (handles grayscale, RGBA, CMYK inputs). Lanczos resampling resizes to 224×224. NumPy converts to float32 and normalizes pixel values to the [0, 1] range. The tensor is expanded to a batch dimension of 1 before inference.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-number" aria-hidden="true">03</div>
+        <div class="pipeline-body">
+          <h3 class="pipeline-title">Model Inference</h3>
+          <p class="pipeline-desc">The preprocessed tensor is fed to the loaded VGG-16 model via <code>model.predict()</code>. The model returns a (1, 17) softmax probability array. Top-5 indices are extracted by probability rank and mapped to class label strings from the training vocabulary.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-number" aria-hidden="true">04</div>
+        <div class="pipeline-body">
+          <h3 class="pipeline-title">Result Enrichment</h3>
+          <p class="pipeline-desc">The primary class label is used to look up a structured disease record containing medical description, symptom list, severity grade (Low / Moderate / High), and recommended next steps. This enriched response is serialized to JSON and returned to the client.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API Reference -->
+<section class="section" aria-labelledby="api-heading">
+  <div class="container">
+    <div class="section-label-row"><span class="section-eyebrow">Integration</span></div>
+    <div class="section-header-split">
+      <h2 class="section-title" id="api-heading">REST API endpoints.</h2>
+      <p class="section-subtitle">Standard HTTP/JSON interface designed for integration into healthcare platforms, EMR systems, or mobile apps.</p>
+    </div>
+
+    <div class="api-table-wrap">
+      <table class="api-table" role="table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="method-badge method-get">GET</span></td>
+            <td><code>/api/health</code></td>
+            <td>Application health check. Returns status, uptime, and model availability.</td>
+          </tr>
+          <tr>
+            <td><span class="method-badge method-get">GET</span></td>
+            <td><code>/api/version</code></td>
+            <td>Returns application version string and build metadata.</td>
+          </tr>
+          <tr>
+            <td><span class="method-badge method-get">GET</span></td>
+            <td><code>/api/model-info</code></td>
+            <td>Returns model architecture name, input shape, and full class label list.</td>
+          </tr>
+          <tr>
+            <td><span class="method-badge method-post">POST</span></td>
+            <td><code>/api/predict</code></td>
+            <td>Primary prediction endpoint. Accepts <code>multipart/form-data</code> with field <code>file</code>. Returns structured JSON with prediction, confidence, top-5 alternatives, severity, and clinical guidance.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

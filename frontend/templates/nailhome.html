@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block title %}Disease Library{% endblock %}
+{% block content %}
+
+<section class="inner-hero" aria-label="Disease library">
+  <div class="container">
+    <div class="inner-hero-content">
+      <span class="section-eyebrow">Reference</span>
+      <h1 class="inner-hero-title">Nail Disease Library.</h1>
+      <p class="inner-hero-subtitle">All 17 conditions the screening model can detect. Each entry includes a clinical description, observable symptoms, severity classification, and recommended next steps.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="diseases-heading">
+  <div class="container">
+
+    <!-- Severity legend -->
+    <div class="legend-row" role="note" aria-label="Severity classification key">
+      <span class="legend-label">Severity key:</span>
+      <span class="sev-pill sev-low">Low</span>
+      <span class="sev-pill sev-moderate">Moderate</span>
+      <span class="sev-pill sev-high">High</span>
+    </div>
+
+    <h2 class="sr-only" id="diseases-heading">17 Detectable Conditions</h2>
+
+    <div class="disease-grid">
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Darier's Disease</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Autosomal dominant genodermatosis causing abnormal keratinization in nails and skin. Characteristic V-shaped nicks at the free edge.</p>
+        <div class="disease-symptoms">
+          <span>Nail pitting</span><span>Red &amp; white streaks</span><span>V-shaped notches</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Muehrcke's Lines</h3>
+          <span class="sev-pill sev-low">Low</span>
+        </div>
+        <p class="disease-desc">Paired white transverse bands associated with hypoalbuminemia. Bands do not indent the nail surface and disappear with pressure.</p>
+        <div class="disease-symptoms">
+          <span>Parallel white lines</span><span>Transverse bands</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Alopecia Areata</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Autoimmune disorder affecting hair follicles with nail manifestations in roughly 10–38% of patients.</p>
+        <div class="disease-symptoms">
+          <span>Nail pitting</span><span>Trachyonychia</span><span>Koilonychia</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Beau's Lines</h3>
+          <span class="sev-pill sev-low">Low</span>
+        </div>
+        <p class="disease-desc">Transverse grooves caused by temporary disruption of nail matrix growth, typically from systemic illness, trauma, or chemotherapy.</p>
+        <div class="disease-symptoms">
+          <span>Horizontal grooves</span><span>Multiple nails affected</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Bluish Nail</h3>
+          <span class="sev-pill sev-high">High</span>
+        </div>
+        <p class="disease-desc">Cyanosis of the nail bed indicating peripheral hypoxia, cardiovascular compromise, or Raynaud's phenomenon. Warrants urgent evaluation.</p>
+        <div class="disease-symptoms">
+          <span>Blue nail beds</span><span>Cold extremities</span><span>Poor capillary refill</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Clubbing</h3>
+          <span class="sev-pill sev-high">High</span>
+        </div>
+        <p class="disease-desc">Hypertrophic osteoarthropathy producing enlarged fingertip pads and increased nail curvature. Associated with pulmonary, cardiac, and hepatic disease.</p>
+        <div class="disease-symptoms">
+          <span>Bulbous fingertips</span><span>Spongy nail base</span><span>Increased nail angle</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Eczema</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Atopic or contact dermatitis affecting the periungual tissue and nail fold, leading to secondary nail plate changes.</p>
+        <div class="disease-symptoms">
+          <span>Inflamed nail fold</span><span>Nail thickening</span><span>Onycholysis</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Lindsay's Nails</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Half-and-half nails: proximal white band and distal pink/brown band. A recognized clinical sign of chronic kidney disease.</p>
+        <div class="disease-symptoms">
+          <span>Bicolor appearance</span><span>White proximal band</span><span>Brown distal band</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Koilonychia</h3>
+          <span class="sev-pill sev-low">Low</span>
+        </div>
+        <p class="disease-desc">Spoon-shaped nail deformity with central concavity. Classically associated with iron deficiency anemia; also seen in hemochromatosis and Plummer–Vinson syndrome.</p>
+        <div class="disease-symptoms">
+          <span>Concave nail surface</span><span>Thin brittle nails</span><span>Spoon shape</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Leukonychia</h3>
+          <span class="sev-pill sev-low">Low</span>
+        </div>
+        <p class="disease-desc">White discoloration of the nail plate, most commonly from minor trauma to the nail matrix. Usually grows out without intervention.</p>
+        <div class="disease-symptoms">
+          <span>White spots</span><span>White transverse streaks</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Onycholysis</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Separation of the nail plate from the nail bed, beginning distally and progressing proximally. Caused by trauma, psoriasis, thyroid disease, or fungal infection.</p>
+        <div class="disease-symptoms">
+          <span>Nail plate separation</span><span>White distal edge</span><span>Odor if infected</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Pale Nail</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Diffuse pallor of the nail bed, associated with anemia, malnutrition, peripheral vascular insufficiency, or liver disease.</p>
+        <div class="disease-symptoms">
+          <span>Reduced nail bed color</span><span>Overall pallor</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Red Lunula</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Erythematous discoloration of the normally white lunula. Reported in association with cardiac failure, alopecia areata, and collagen vascular diseases.</p>
+        <div class="disease-symptoms">
+          <span>Red half-moon at base</span><span>Altered lunula color</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Splinter Hemorrhage</h3>
+          <span class="sev-pill sev-low">Low</span>
+        </div>
+        <p class="disease-desc">Dark red or brown linear streaks running longitudinally under the nail plate. Usually from minor trauma; multiple lesions raise suspicion for infective endocarditis.</p>
+        <div class="disease-symptoms">
+          <span>Dark linear streaks</span><span>Longitudinal orientation</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Terry's Nail</h3>
+          <span class="sev-pill sev-high">High</span>
+        </div>
+        <p class="disease-desc">Predominantly white nail plate with a narrow pink or reddish distal band (1–3 mm). A recognized hepatic marker, particularly in cirrhosis and hepatic failure.</p>
+        <div class="disease-symptoms">
+          <span>White nail plate</span><span>Pink distal band</span><span>Loss of lunula</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">White Nail</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Complete whitening of the nail plate. Can indicate liver disease, renal failure, thyroid disorders, or be a side effect of certain medications.</p>
+        <div class="disease-symptoms">
+          <span>Total white appearance</span><span>Opaque plate</span>
+        </div>
+      </article>
+
+      <article class="disease-card">
+        <div class="disease-card-head">
+          <h3 class="disease-name">Yellow Nails</h3>
+          <span class="sev-pill sev-moderate">Moderate</span>
+        </div>
+        <p class="disease-desc">Slow-growing, thickened, yellow-green nails often with onycholysis. Associated with lymphedema and chronic respiratory disease; a triad with pleural effusion defines Yellow Nail Syndrome.</p>
+        <div class="disease-symptoms">
+          <span>Yellow-green color</span><span>Thickened plate</span><span>Slow growth</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer-bar" role="note">
+  <div class="container">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="#92400e" stroke-width="1.2"/><path d="M8 5v3M8 10v1" stroke="#92400e" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <span><strong>Educational use only.</strong> This library is a reference guide, not a diagnostic resource. Always consult a qualified dermatologist or healthcare provider for clinical evaluation.</span>
+  </div>
+</div>
+
+{% endblock %}
